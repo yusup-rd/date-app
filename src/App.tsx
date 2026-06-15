@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { KittyBubbleBackground } from "./components/KittyBubbleBackground";
+import { KittyBubbleBackground } from "./components/ui/KittyBubbleBackground";
 import ClickSpark from "./components/ui/ClickSpark";
 import { FoodChoiceModal } from "./components/modals/FoodChoiceModal";
 import { InviteModal } from "./components/modals/InviteModal";

@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import kittyMask from "../assets/bg-kitty.svg";
+import kittyMask from "../../assets/bg-kitty.svg";
 
 // ─── Tweak these values to adjust the background ─────────────────────────────
 
