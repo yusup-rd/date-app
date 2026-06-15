@@ -3,8 +3,8 @@ import {
   ArrowRight,
   CalendarDays,
   Heart,
-  MapPin,
   Sparkles,
+  UtensilsCrossed,
 } from "lucide-react";
 import { useState } from "react";
 import Tag from "../ui/Tag";
@@ -15,6 +15,7 @@ import Description from "../ui/Description";
 import ModalWrapper from "../ui/ModalWrapper";
 import FallingText from "../ui/FallingText";
 import AlternativeText from "../ui/AlternativeText";
+import Stamp from "../ui/Stamp";
 
 const INVITE_HEADLINE = "You are invited";
 const INVITE_TITLE = "One cute date night?";
@@ -58,9 +59,7 @@ export function InviteModal({ onNext, onDecline }: InviteModalProps) {
           icon={<Sparkles className="h-3.5 w-3.5" />}
           text="A tiny love note"
         />
-        <div className="bg-accent/15 text-accent flex h-11 w-11 items-center justify-center rounded-2xl shadow-sm">
-          <Heart className="h-5 w-5 fill-current" />
-        </div>
+        <Stamp icon={<Heart className="h-5 w-5 fill-current" />} />
       </div>
 
       <div className="relative mt-4 text-center sm:mt-5 sm:text-left">
@@ -89,14 +88,14 @@ export function InviteModal({ onNext, onDecline }: InviteModalProps) {
       <div className="mt-4 grid gap-2 sm:mt-5 sm:grid-cols-2 sm:gap-3">
         <Card
           icon={<CalendarDays className="h-4.5 w-4.5" />}
-          title="Friday evening"
-          description="Sunset to stargazing"
+          title="Evening plans"
+          description="Golden hour into something cozy"
         />
 
         <Card
-          icon={<MapPin className="h-4.5 w-4.5" />}
-          title="A cozy surprise"
-          description="Somewhere pretty nearby"
+          icon={<UtensilsCrossed className="h-4.5 w-4.5" />}
+          title="Choose dinner"
+          description="Pick something you're craving"
         />
       </div>
 

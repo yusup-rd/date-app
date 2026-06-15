@@ -1,5 +1,7 @@
 import { ArrowLeft, CalendarCheck2 } from "lucide-react";
 import ModalWrapper from "../ui/ModalWrapper";
+import ControlButton from "../ui/ControlButton";
+import Stamp from "../ui/Stamp";
 
 type DateFormModalProps = {
   onBack: () => void;
@@ -10,17 +12,12 @@ export function DateFormModal({ onBack, selectedFood }: DateFormModalProps) {
   return (
     <ModalWrapper>
       <div className="flex items-center justify-between gap-4">
-        <button
-          type="button"
+        <ControlButton
+          icon={<ArrowLeft className="h-3.5 w-3.5" />}
+          text="Back"
           onClick={onBack}
-          className="border-primary/15 text-muted-foreground inline-flex items-center gap-2 rounded-full border bg-white/90 px-3 py-1.5 text-xs font-semibold"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          Back
-        </button>
-        <div className="bg-accent/15 text-accent inline-flex h-10 w-10 items-center justify-center rounded-2xl">
-          <CalendarCheck2 className="h-4.5 w-4.5" />
-        </div>
+        />
+        <Stamp icon={<CalendarCheck2 className="h-5 w-5" />} />
       </div>
 
       <div className="mt-4 text-center sm:mt-5 sm:text-left">

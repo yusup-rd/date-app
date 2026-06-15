@@ -136,8 +136,15 @@ const FallingText = ({
         if (!canvasContainer || (!fullViewport && !layoutContainer)) return;
         if (fullViewport && !wordsHost) return;
 
-        const { Engine, Render, World, Bodies, Runner, Mouse, MouseConstraint } =
-          Matter;
+        const {
+          Engine,
+          Render,
+          World,
+          Bodies,
+          Runner,
+          Mouse,
+          MouseConstraint,
+        } = Matter;
 
         const width = fullViewport
           ? window.innerWidth

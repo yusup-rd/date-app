@@ -48,7 +48,7 @@ export function FoodChoiceModal({
         <Subtitle text="Pick one cute option and I'll prep our date plan around it." />
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-2 sm:mt-5 sm:gap-3">
+      <div className="mt-4 grid grid-cols-2 gap-2 overflow-y-auto px-1 py-2 pr-1 sm:mt-5 sm:gap-3 sm:py-3">
         {foodOptions.map((food) => {
           const isActive = selectedFood === food.name;
 
@@ -57,7 +57,7 @@ export function FoodChoiceModal({
               key={food.name}
               type="button"
               onClick={() => onSelect(food.name)}
-              className={`rounded-2xl border p-2 text-center transition duration-200 hover:-translate-y-0.5 sm:p-3 ${
+              className={`cursor-pointer rounded-2xl border p-2 text-center transition duration-200 select-none hover:-translate-y-0.5 sm:p-3 ${
                 isActive
                   ? "border-primary bg-primary/10"
                   : "border-primary/10 bg-background/85 shadow-sm"
