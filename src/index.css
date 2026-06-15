@@ -92,9 +92,37 @@ h1 {
   -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: contain;
-  animation: kitty-float var(--kitty-duration) var(--kitty-delay) linear infinite;
+  animation: kitty-float var(--kitty-duration) var(--kitty-delay) linear
+    infinite;
   mask-position: center;
   mask-repeat: no-repeat;
   mask-size: contain;
   transform: translate3d(0, 110vh, 0);
+}
+
+/* Global scrollbar theme */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) var(--color-muted);
+}
+
+/* Chrome, Safari, Edge, Opera */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-muted);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 999px;
+  border: 2px solid var(--color-muted);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
 }
