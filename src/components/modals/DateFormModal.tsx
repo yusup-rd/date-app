@@ -2,6 +2,9 @@ import { ArrowLeft, CalendarCheck2 } from "lucide-react";
 import ModalWrapper from "../ui/ModalWrapper";
 import ControlButton from "../ui/ControlButton";
 import Stamp from "../ui/Stamp";
+import Description from "../ui/Description";
+import Title from "../ui/Title";
+import Subtitle from "../ui/Subtitle";
 
 type DateFormModalProps = {
   onBack: () => void;
@@ -20,17 +23,12 @@ export function DateFormModal({ onBack, selectedFood }: DateFormModalProps) {
         <Stamp icon={<CalendarCheck2 className="h-5 w-5" />} />
       </div>
 
-      <div className="mt-4 text-center sm:mt-5 sm:text-left">
-        <p className="text-muted-foreground text-sm font-medium tracking-[0.28em] uppercase">
-          Step 3
-        </p>
-        <h1 className="text-foreground mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">
-          Third modal
-        </h1>
-        <p className="text-muted-foreground mt-3 text-base leading-7 sm:text-lg">
-          Drafting our schedule{selectedFood ? ` with ${selectedFood}` : ""}.
-          Pick a day and time.
-        </p>
+      <div className="mt-4 space-y-3 text-center sm:mt-5 sm:space-y-4 sm:text-left">
+        <Description text="Step 3" />
+        <Title text="Third modal" />
+        <Subtitle
+          text={`Drafting our schedule${selectedFood ? ` with ${selectedFood}` : ""}. Pick a day and time.`}
+        />
       </div>
 
       <form className="mt-4 space-y-3 sm:mt-5 sm:space-y-4">
