@@ -55,51 +55,6 @@ h1 {
   color: var(--color-foreground);
 }
 
-/* Kitty bubble rise animation — edit keyframe % stops to change wobble path.
-   Fade-in/out windows: 6% and 92% (lower 6% = quicker appear, higher 92% = linger longer). */
-@keyframes kitty-float {
-  0% {
-    transform: translate3d(0, 110vh, 0) rotate(var(--rot-start));
-    opacity: 0;
-  }
-  5% {
-    opacity: var(--kitty-opacity);
-  }
-  22% {
-    transform: translate3d(var(--drift-1), 72vh, 0)
-      rotate(calc(var(--rot-start) + 12deg));
-  }
-  48% {
-    transform: translate3d(var(--drift-2), 42vh, 0)
-      rotate(calc(var(--rot-start) - 8deg));
-  }
-  74% {
-    transform: translate3d(var(--drift-3), 14vh, 0) rotate(var(--rot-end));
-  }
-  94% {
-    opacity: var(--kitty-opacity);
-  }
-  100% {
-    transform: translate3d(var(--drift-end), -18vh, 0)
-      rotate(calc(var(--rot-end) + 18deg));
-    opacity: 0;
-  }
-}
-
-/* timing-function is linear — swap to ease-in-out for a softer feel */
-.kitty-bubble {
-  bottom: 0;
-  -webkit-mask-position: center;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  animation: kitty-float var(--kitty-duration) var(--kitty-delay) linear
-    infinite;
-  mask-position: center;
-  mask-repeat: no-repeat;
-  mask-size: contain;
-  transform: translate3d(0, 110vh, 0);
-}
-
 /* Global scrollbar theme */
 * {
   scrollbar-width: thin;

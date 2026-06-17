@@ -1,7 +1,7 @@
 import Matter from "matter-js";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import "./FallingText.css";
+import "../../styles/FallingText.css";
 
 type FallingTextTrigger = "click" | "hover" | "auto" | "scroll";
 
