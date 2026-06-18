@@ -156,7 +156,7 @@ const FallingText = ({
         if (width <= 0 || height <= 0) return;
 
         const engine = Engine.create();
-        engine.world.gravity.y = gravity;
+        engine.gravity.y = gravity;
 
         const render = Render.create({
           element: canvasContainer,

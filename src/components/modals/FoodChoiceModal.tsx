@@ -5,17 +5,7 @@ import Subtitle from "../ui/Subtitle";
 import Description from "../ui/Description";
 import ControlButton from "../ui/ControlButton";
 import ModalWrapper from "../ui/ModalWrapper";
-
-const foodOptions = [
-  { emoji: "🍕", name: "Pizza" },
-  { emoji: "🍔", name: "Burger" },
-  { emoji: "🍣", name: "Sushi" },
-  { emoji: "🍜", name: "Ramen" },
-  { emoji: "🍝", name: "Pasta" },
-  { emoji: "🍩", name: "Donuts" },
-  { emoji: "🥞", name: "Pancakes" },
-  { emoji: "🍓", name: "Strawberry Treat" },
-] as const;
+import { FOOD_OPTIONS } from "../../utils/constants";
 
 type FoodChoiceModalProps = {
   onBack: () => void;
@@ -49,7 +39,7 @@ export function FoodChoiceModal({
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-2 overflow-y-auto px-1 py-2 pr-1 sm:mt-5 sm:gap-3 sm:py-3">
-        {foodOptions.map((food) => {
+        {FOOD_OPTIONS.map((food) => {
           const isActive = selectedFood === food.name;
 
           return (
