@@ -84,7 +84,7 @@ export function DateFormModal({
           disabled={isLoading}
           className={`bg-primary inline-flex w-full flex-1 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(232,108,138,0.28)] transition-transform duration-200 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60`}
         >
-          {isLoading ? "Sending..." : "Let's go!"}
+          {isLoading ? "Setting up..." : "Let's go!"}
           <Heart className="h-4 w-4 fill-white" />
         </button>
       </form>

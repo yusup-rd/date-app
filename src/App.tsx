@@ -155,7 +155,7 @@ function App() {
   }) => {
     setIsSubmitting(true);
 
-    const loadingToast = toast.loading("Sending your date request...");
+    const loadingToast = toast.loading("Setting up the date request...");
 
     try {
       const res = await fetch("/.netlify/functions/sendTelegram", {
@@ -174,7 +174,7 @@ function App() {
         throw new Error("Failed to send message");
       }
 
-      toast.success("Sent! Check Telegram 💌", {
+      toast.success("Done!", {
         id: loadingToast,
       });
 
