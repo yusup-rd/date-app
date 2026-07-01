@@ -1,3 +1,4 @@
+import toast, { Toaster } from "react-hot-toast";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { KittyBubbleBackground } from "./components/ui/KittyBubbleBackground";
@@ -102,6 +103,7 @@ function App() {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [noStrike, setNoStrike] = useState<NoStrikeState | null>(null);
   const [isNoGone, setIsNoGone] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -144,10 +146,51 @@ function App() {
     setNoStrike(null);
   };
 
-  const handleDateSubmit = ({ date, time }: { date: string; time: string }) => {
-    setSelectedDate(date);
-    setSelectedTime(time);
-    setStep("final");
+  const handleDateSubmit = async ({
+    date,
+    time,
+  }: {
+    date: string;
+    time: string;
+  }) => {
+    setIsSubmitting(true);
+
+    const loadingToast = toast.loading("Sending your date request...");
+
+    try {
+      const res = await fetch("/.netlify/functions/sendTelegram", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          food: selectedFood,
+          date,
+          time,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      toast.success("Sent! Check Telegram 💌", {
+        id: loadingToast,
+      });
+
+      setSelectedDate(date);
+      setSelectedTime(time);
+      setStep("final");
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Something went wrong";
+
+      toast.error(message, {
+        id: loadingToast,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isAppReady) {
@@ -163,6 +206,7 @@ function App() {
       sparkRadius={22}
       sparkSize={12}
     >
+      <Toaster position="top-center" />
       <main className="bg-background text-foreground relative h-dvh overflow-hidden">
         <KittyBubbleBackground />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.68),transparent_48%),radial-gradient(circle_at_18%_22%,rgba(232,108,138,0.16),transparent_30%),radial-gradient(circle_at_82%_18%,rgba(247,179,156,0.2),transparent_32%),linear-gradient(180deg,rgba(255,247,242,0.58),rgba(255,240,246,0.62))]" />
@@ -206,6 +250,7 @@ function App() {
                   onBack={() => setStep("food")}
                   onSubmitDate={handleDateSubmit}
                   selectedFood={selectedFood}
+                  isLoading={isSubmitting}
                 />
               ) : null}
 
