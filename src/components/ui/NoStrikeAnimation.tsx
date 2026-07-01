@@ -111,12 +111,6 @@ function NoStrikeAnimation({
       : phase === "return"
         ? RUN_FRAMES[returnFrameIndex]
         : RUN_FRAMES[runFrameIndex];
-  const frameKey =
-    phase === "kick"
-      ? `kick-${kickFrameIndex}`
-      : phase === "return"
-        ? `return-${returnFrameIndex}`
-        : `run-${runFrameIndex}`;
   const mirrored = phase !== "return";
   const animatedX = phase === "return" ? startX : targetX;
   const animatedY = phase === "return" ? startY : targetY;
@@ -135,9 +129,9 @@ function NoStrikeAnimation({
   };
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 z-10001 overflow-hidden">
       <motion.div
-        className="absolute top-0 left-0"
+        className="absolute top-0 left-0 z-20"
         initial={{ x: startX, y: startY }}
         animate={{ x: animatedX, y: animatedY }}
         onAnimationComplete={handleMotionComplete}
@@ -148,13 +142,15 @@ function NoStrikeAnimation({
         }
       >
         <img
-          key={frameKey}
           alt="Hello Kitty running in to kick the button"
           className="h-31 w-31 drop-shadow-[0_18px_24px_rgba(232,108,138,0.22)] will-change-transform select-none"
-          decoding="sync"
+          decoding="async"
           draggable={false}
           src={frameSource}
-          style={{ transform: mirrored ? "scaleX(-1)" : "scaleX(1)" }}
+          style={{
+            transform: mirrored ? "scaleX(-1)" : "scaleX(1)",
+            backfaceVisibility: "hidden",
+          }}
         />
       </motion.div>
 
@@ -162,7 +158,7 @@ function NoStrikeAnimation({
         {showFlyingButton ? (
           <motion.button
             aria-hidden="true"
-            className="border-primary/15 text-foreground pointer-events-none absolute inline-flex items-center justify-center gap-2 rounded-full border bg-white/90 px-5 py-3 text-sm font-semibold shadow-[0_14px_30px_rgba(232,108,138,0.28)]"
+            className="border-primary/15 text-foreground pointer-events-none absolute z-10 inline-flex items-center justify-center gap-2 rounded-full border bg-white/90 px-5 py-3 text-sm font-semibold shadow-[0_14px_30px_rgba(232,108,138,0.28)]"
             initial={{ opacity: 1, scale: 1, x: 0, y: 0, rotate: 0 }}
             animate={{
               opacity: 0,
