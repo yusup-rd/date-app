@@ -50,26 +50,26 @@ export function DateFormModal({
       </div>
 
       <form
-        className="mt-4 space-y-3 sm:mt-5 sm:space-y-4"
+        className="mt-4 min-w-0 space-y-3 sm:mt-5 sm:space-y-4"
         onSubmit={handleSubmit}
       >
-        <label className="block space-y-1.5">
+        <label className="block min-w-0 space-y-1.5">
           <span className="text-foreground text-sm font-semibold">Day</span>
           <input
             type="date"
             name="date"
             min={today}
-            className="border-primary/15 text-foreground block w-full rounded-xl border bg-white/90 px-3 py-2.5"
+            className="border-primary/15 text-foreground block w-full min-w-0 max-w-full rounded-xl border bg-white/90 px-3 py-2.5"
             required
           />
         </label>
 
-        <label className="block space-y-1.5">
+        <label className="block min-w-0 space-y-1.5">
           <span className="text-foreground text-sm font-semibold">Time</span>
           <input
             type="time"
             name="time"
-            className="border-primary/15 text-foreground block w-full rounded-xl border bg-white/90 px-3 py-2.5"
+            className="border-primary/15 text-foreground block w-full min-w-0 max-w-full rounded-xl border bg-white/90 px-3 py-2.5"
             required
           />
         </label>

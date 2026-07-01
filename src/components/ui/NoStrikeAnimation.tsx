@@ -15,8 +15,10 @@ import run4 from "../../assets/animate/run-4.png";
 
 const RUN_FRAMES = [run1, run2, run3, run4];
 const JUMP_FRAMES = [jump1, jump2, jump3, jump4, jump5, jump6, jump7, jump8];
-const RUN_TRAVEL_DURATION = 0.4;
+const RUN_TRAVEL_DURATION = 0.8;
 const RETURN_TRAVEL_DURATION = 0.95;
+const KICK_FRAME_INTERVAL = 70;
+const KICK_TOTAL_DURATION = JUMP_FRAMES.length * KICK_FRAME_INTERVAL;
 
 type NoStrikeAnimationProps = {
   buttonRect: DOMRect;
@@ -52,7 +54,7 @@ function NoStrikeAnimation({
       setRunFrameIndex(
         (currentIndex) => (currentIndex + 1) % RUN_FRAMES.length,
       );
-    }, 110);
+    }, 80);
 
     return () => {
       window.clearInterval(interval);
@@ -65,17 +67,17 @@ function NoStrikeAnimation({
     }
 
     const interval = window.setInterval(() => {
-      setKickFrameIndex(
-        (currentIndex) => (currentIndex + 1) % JUMP_FRAMES.length,
+      setKickFrameIndex((currentIndex) =>
+        Math.min(currentIndex + 1, JUMP_FRAMES.length - 1),
       );
-    }, 90);
+    }, KICK_FRAME_INTERVAL);
     const flyingButtonTimer = window.setTimeout(
       () => setShowFlyingButton(true),
       110,
     );
     const returnTimer = window.setTimeout(() => {
       setPhase("return");
-    }, 750);
+    }, KICK_TOTAL_DURATION + 40);
 
     return () => {
       window.clearInterval(interval);
@@ -93,7 +95,7 @@ function NoStrikeAnimation({
       setReturnFrameIndex(
         (currentIndex) => (currentIndex + 1) % RUN_FRAMES.length,
       );
-    }, 110);
+    }, 80);
 
     const doneTimer = window.setTimeout(onComplete, 1100);
 
@@ -109,12 +111,19 @@ function NoStrikeAnimation({
       : phase === "return"
         ? RUN_FRAMES[returnFrameIndex]
         : RUN_FRAMES[runFrameIndex];
+  const frameKey =
+    phase === "kick"
+      ? `kick-${kickFrameIndex}`
+      : phase === "return"
+        ? `return-${returnFrameIndex}`
+        : `run-${runFrameIndex}`;
   const mirrored = phase !== "return";
   const animatedX = phase === "return" ? startX : targetX;
   const animatedY = phase === "return" ? startY : targetY;
 
   const handleMotionComplete = () => {
     if (phase === "run") {
+      setKickFrameIndex(0);
       setPhase("kick");
       onKick();
       return;
@@ -139,8 +148,10 @@ function NoStrikeAnimation({
         }
       >
         <img
+          key={frameKey}
           alt="Hello Kitty running in to kick the button"
-          className="h-31 w-31 drop-shadow-[0_18px_24px_rgba(232,108,138,0.22)] select-none"
+          className="h-31 w-31 drop-shadow-[0_18px_24px_rgba(232,108,138,0.22)] will-change-transform select-none"
+          decoding="sync"
           draggable={false}
           src={frameSource}
           style={{ transform: mirrored ? "scaleX(-1)" : "scaleX(1)" }}
