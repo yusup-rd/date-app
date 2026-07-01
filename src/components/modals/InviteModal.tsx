@@ -17,10 +17,11 @@ import Stamp from "../ui/Stamp";
 
 type InviteModalProps = {
   onNext: () => void;
-  onDecline: () => void;
+  onDecline: (buttonElement: HTMLButtonElement) => void;
+  isNoGone: boolean;
 };
 
-export function InviteModal({ onNext }: InviteModalProps) {
+export function InviteModal({ onDecline, onNext, isNoGone }: InviteModalProps) {
   return (
     <ModalWrapper>
       <div className="flex items-center justify-between gap-4">
@@ -60,13 +61,22 @@ export function InviteModal({ onNext }: InviteModalProps) {
           Yes, I&apos;m in
           <ArrowRight className="h-4 w-4" />
         </button>
-        <button
-          type="button"
-          className="border-primary/15 text-foreground inline-flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-full border bg-white/90 px-5 py-3 text-sm font-semibold transition-transform duration-200 hover:-translate-y-0.5"
-        >
-          <Angry className="h-4 w-4" />
-          No!
-        </button>
+
+        {isNoGone ? (
+          <span
+            aria-hidden="true"
+            className="inline-flex flex-1 rounded-full px-5 py-3 sm:min-h-12"
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={(event) => onDecline(event.currentTarget)}
+            className="border-primary/15 text-foreground inline-flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-full border bg-white/90 px-5 py-3 text-sm font-semibold transition-transform duration-200 hover:-translate-y-0.5"
+          >
+            <Angry className="h-4 w-4" />
+            No!
+          </button>
+        )}
       </div>
 
       <AlternativeText text="Made with extra sugar, a little sparkle, and lots of heart." />

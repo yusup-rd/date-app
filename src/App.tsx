@@ -5,16 +5,39 @@ import ClickSpark from "./components/ui/ClickSpark";
 import { FoodChoiceModal } from "./components/modals/FoodChoiceModal";
 import { InviteModal } from "./components/modals/InviteModal";
 import { DateFormModal } from "./components/modals/DateFormModal";
+import NoStrikeAnimation from "./components/ui/NoStrikeAnimation.tsx";
 
 type ModalStep = "invite" | "food" | "date";
+
+type NoStrikeState = {
+  buttonRect: DOMRect;
+  id: number;
+};
 
 function App() {
   const [step, setStep] = useState<ModalStep>("invite");
   const [selectedFood, setSelectedFood] = useState<string | null>(null);
+  const [noStrike, setNoStrike] = useState<NoStrikeState | null>(null);
+  const [isNoGone, setIsNoGone] = useState(false);
 
   const handleFoodSelect = (foodName: string) => {
     setSelectedFood(foodName);
     setStep("date");
+  };
+
+  const handleNoClick = (buttonElement: HTMLButtonElement) => {
+    setNoStrike({
+      buttonRect: buttonElement.getBoundingClientRect(),
+      id: Date.now(),
+    });
+  };
+
+  const handleNoKick = () => {
+    setIsNoGone(true);
+  };
+
+  const clearNoStrike = () => {
+    setNoStrike(null);
   };
 
   return (
@@ -32,6 +55,14 @@ function App() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.35)_1px,transparent_1px)] bg-size-[18px_18px] opacity-20" />
 
         <section className="relative grid h-full place-items-center overflow-hidden px-4 py-4 sm:px-6 sm:py-6">
+          {noStrike ? (
+            <NoStrikeAnimation
+              key={noStrike.id}
+              buttonRect={noStrike.buttonRect}
+              onKick={handleNoKick}
+              onComplete={clearNoStrike}
+            />
+          ) : null}
           <AnimatePresence mode="wait">
             <motion.div
               key={step}
@@ -42,7 +73,8 @@ function App() {
             >
               {step === "invite" ? (
                 <InviteModal
-                  onDecline={() => setStep("invite")}
+                  isNoGone={isNoGone}
+                  onDecline={handleNoClick}
                   onNext={() => setStep("food")}
                 />
               ) : null}
