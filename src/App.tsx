@@ -20,6 +20,7 @@ import jump5 from "./assets/animate/jump-5.png";
 import jump6 from "./assets/animate/jump-6.png";
 import jump7 from "./assets/animate/jump-7.png";
 import jump8 from "./assets/animate/jump-8.png";
+import { Heart } from "lucide-react";
 
 type ModalStep = "invite" | "food" | "date" | "final";
 
@@ -79,10 +80,12 @@ function GlobalLoader() {
 
       <div className="relative flex flex-col items-center gap-5 text-center">
         <motion.div
-          className="border-primary/20 bg-white/85 h-16 w-16 rounded-2xl border shadow-[0_12px_34px_rgba(232,108,138,0.2)]"
+          className="border-primary/20 flex h-16 w-16 items-center justify-center rounded-2xl border bg-white/85 shadow-[0_12px_34px_rgba(232,108,138,0.2)]"
           animate={{ rotate: [0, -12, 12, -8, 8, 0], y: [0, -4, 0] }}
           transition={{ duration: 1.35, repeat: Infinity, ease: "easeInOut" }}
-        />
+        >
+          <Heart className="fill-primary text-primary h-8 w-8" />
+        </motion.div>
         <p className="text-foreground text-sm font-semibold sm:text-base">
           Preparing all the cute things...
         </p>
