@@ -5,9 +5,10 @@ import ClickSpark from "./components/ui/ClickSpark";
 import { FoodChoiceModal } from "./components/modals/FoodChoiceModal";
 import { InviteModal } from "./components/modals/InviteModal";
 import { DateFormModal } from "./components/modals/DateFormModal";
+import { FinalModal } from "./components/modals/FinalModal";
 import NoStrikeAnimation from "./components/ui/NoStrikeAnimation.tsx";
 
-type ModalStep = "invite" | "food" | "date";
+type ModalStep = "invite" | "food" | "date" | "final";
 
 type NoStrikeState = {
   buttonRect: DOMRect;
@@ -17,6 +18,8 @@ type NoStrikeState = {
 function App() {
   const [step, setStep] = useState<ModalStep>("invite");
   const [selectedFood, setSelectedFood] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [noStrike, setNoStrike] = useState<NoStrikeState | null>(null);
   const [isNoGone, setIsNoGone] = useState(false);
 
@@ -38,6 +41,12 @@ function App() {
 
   const clearNoStrike = () => {
     setNoStrike(null);
+  };
+
+  const handleDateSubmit = ({ date, time }: { date: string; time: string }) => {
+    setSelectedDate(date);
+    setSelectedTime(time);
+    setStep("final");
   };
 
   return (
@@ -90,7 +99,16 @@ function App() {
               {step === "date" ? (
                 <DateFormModal
                   onBack={() => setStep("food")}
+                  onSubmitDate={handleDateSubmit}
                   selectedFood={selectedFood}
+                />
+              ) : null}
+
+              {step === "final" ? (
+                <FinalModal
+                  selectedDate={selectedDate}
+                  selectedFood={selectedFood}
+                  selectedTime={selectedTime}
                 />
               ) : null}
             </motion.div>
